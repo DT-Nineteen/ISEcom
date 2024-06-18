@@ -2,7 +2,7 @@ import * as React from 'react';
 import AppScreens, {AppScreensParamList} from './AppScreens.tsx';
 
 import {createStackNavigator} from '@react-navigation/stack';
-import Checkout from 'screens/checkout.tsx/index.tsx';
+import Checkout from 'screens/checkout/index.tsx';
 import Cart from 'screens/cart/index.tsx';
 
 const Stack = createStackNavigator<AppScreensParamList>();

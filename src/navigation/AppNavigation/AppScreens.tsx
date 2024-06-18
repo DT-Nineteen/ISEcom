@@ -8,6 +8,7 @@ export enum AppScreens {
   CART = 'Cart',
   CHECK_OUT = 'CheckOut',
   CHECK_OUT_NAVIGATOR = 'CheckOutNavigator',
+  SETTING = 'Setting',
 }
 
 export type AppScreensParamList = {
@@ -17,6 +18,7 @@ export type AppScreensParamList = {
   [AppScreens.CART]: undefined;
   [AppScreens.CHECK_OUT]: undefined;
   [AppScreens.CHECK_OUT_NAVIGATOR]: undefined;
+  [AppScreens.SETTING]: undefined;
 };
 
 export type AppScreenProps<T extends AppScreens> = {
