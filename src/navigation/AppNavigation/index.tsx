@@ -2,7 +2,7 @@ import {
   NavigationContainer,
   NavigationContainerRef,
 } from '@react-navigation/native';
-import * as React from 'react';
+import {useEffect, useRef} from 'react';
 import {TabNavigation} from './TabNavigator';
 import {LinkingConfiguration} from './LinkingConfiguration';
 import AuthNavigation from './AuthNavigator';
@@ -11,28 +11,28 @@ import {
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native';
 import {useSelector} from 'react-redux';
-import {isDarkMode} from 'redux/nodes/appConfig/appConfigSelectors';
+import {isDarkMode, getIsAppInit} from 'redux/nodes/appConfig/selector';
 import {darkTheme, lightTheme} from 'theme/ColorTheme';
 import {AppThemeProvider} from 'theme/AppThemeProvider';
 import {getAccessToken} from 'redux/nodes/auth/selectors';
+import NavigationService from './NavigationService';
+import SplashScreen from 'screens/splash';
 
 export default function Navigation() {
-  const navigationContainerRef =
-    React.useRef<NavigationContainerRef<any>>(null);
-
+  const navigationContainerRef = useRef<NavigationContainerRef<any>>(null);
   const isDarkTheme: boolean = useSelector(isDarkMode);
   const isAuth: string = useSelector(getAccessToken);
+  const isAppInit: boolean = useSelector(getIsAppInit);
 
   const themeColor = isDarkTheme
     ? {...darkTheme, ...NavigationDarkTheme}
     : {...lightTheme, ...NavigationDefaultTheme};
 
-  React.useEffect(() => {
-    async function init() {
-      console.log('App init');
+  useEffect(() => {
+    if (navigationContainerRef.current) {
+      NavigationService.setNavigator(navigationContainerRef.current);
     }
-    init();
-  });
+  }, []);
 
   const handleNavigationStateChange = async () => {
     const currentRouteName =
@@ -43,6 +43,10 @@ export default function Navigation() {
       console.log('error', e);
     }
   };
+
+  if (isAppInit) {
+    return <SplashScreen />;
+  }
 
   return (
     <AppThemeProvider>

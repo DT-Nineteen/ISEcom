@@ -1,4 +1,3 @@
-import {ADMIN_TOKEN} from 'sample/magentoSample';
 // Define the User interface
 export interface User {
   id: number;

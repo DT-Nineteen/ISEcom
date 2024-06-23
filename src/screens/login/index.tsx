@@ -5,7 +5,7 @@ import {Formik, FormikProps} from 'formik';
 import * as yup from 'yup';
 import createStyle from './styles';
 import {colors} from 'theme/Color';
-import StyledText from 'components/StyledText';
+import StyledText from 'components/common/StyledText';
 import {useAppTheme} from 'theme/AppThemeProvider';
 import {AuthValues} from 'redux/api/auth/type';
 import {useAuth} from 'hooks/auth/useAuth';

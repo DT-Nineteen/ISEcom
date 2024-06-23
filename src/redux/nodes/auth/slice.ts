@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {initialAuthState, AuthStateType, User} from './constants';
+import {initialAuthState} from './constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface SetIsAuthenticatedPayload {
   isAuthenticated: boolean;
@@ -23,6 +24,7 @@ export const authSlice = createSlice({
     logout(state) {
       state.accessToken = '';
       state.isAuthenticated = false;
+      AsyncStorage.removeItem('accessToken');
     },
   },
 });

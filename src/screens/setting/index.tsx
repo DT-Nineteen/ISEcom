@@ -1,11 +1,13 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import {useAppTheme} from 'theme/AppThemeProvider';
-import {isDarkMode} from 'redux/nodes/appConfig/appConfigSelectors';
-import {appConfigActions} from 'redux/nodes/appConfig/appConfigSelectors';
-import {List, Switch} from 'react-native-paper';
+import {isDarkMode} from 'redux/nodes/appConfig/selector';
+import {appConfigActions} from 'redux/nodes/appConfig/slice';
+import {List, Switch, TouchableRipple} from 'react-native-paper';
 import createStyle from './styles';
+import GenericTemplate from 'components/common/GenericTemplate';
+import StyledText from 'components/common/StyledText';
+import {logout} from 'redux/nodes/auth/slice';
 
 const SettingScreen = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -16,8 +18,11 @@ const SettingScreen = (): JSX.Element => {
   const handleToggleDarkMode = () => {
     dispatch(appConfigActions.toggleDarkMode());
   };
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   return (
-    <SafeAreaView>
+    <GenericTemplate>
       <List.Item
         style={[styles.listItem, {backgroundColor: colors.surface}]}
         titleStyle={{color: colors.text}}
@@ -29,7 +34,10 @@ const SettingScreen = (): JSX.Element => {
           />
         )}
       />
-    </SafeAreaView>
+      <TouchableRipple onPress={handleLogout}>
+        <StyledText h2>Logout</StyledText>
+      </TouchableRipple>
+    </GenericTemplate>
   );
 };
 
